@@ -1,5 +1,5 @@
-import { type Rng, assertFiniteNumber, rngOrDefault } from "./core.ts";
-import { type HoldingTimeDistribution } from "./semi-markov.ts";
+import { type Rng, assertFiniteNumber, rngOrDefault } from "../shared/core.ts";
+import { type HoldingTimeDistribution } from "../chains/semi-markov.ts";
 
 export class RenewalProcess {
   readonly waitingTime: HoldingTimeDistribution;

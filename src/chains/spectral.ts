@@ -6,7 +6,7 @@ import {
   matrixVectorMultiply,
   rowVectorMatrixMultiply,
   vectorDistance,
-} from "./core.ts";
+} from "../shared/core.ts";
 import { MarkovChain } from "./markov-chain.ts";
 
 export interface Eigenpair {

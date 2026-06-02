@@ -12,7 +12,7 @@ import {
   solveLinearSystem,
   uniqueValues,
   vectorToDistribution,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export type GeneratorTransitions<S extends string = string> = Record<S, Partial<Record<S, number>>>;
 

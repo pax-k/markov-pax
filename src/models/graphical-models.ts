@@ -6,7 +6,7 @@ import {
   rngOrDefault,
   sampleIndex,
   uniqueValues,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export type DiscreteAssignment<V extends string> = Record<V, string>;
 

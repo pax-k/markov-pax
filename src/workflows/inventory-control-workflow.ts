@@ -1,9 +1,9 @@
-import { type Distribution, SeededRng, vectorToDistribution } from "./core.ts";
-import { CTMC, type GeneratorTransitions } from "./ctmc.ts";
-import { MDP, type MDPConfig, POMDP, type POMDPConfig } from "./mdp.ts";
-import { BirthDeathProcess, type BirthDeathProcessConfig, MM1Queue, type MM1QueueConfig } from "./queue.ts";
-import { RenewalProcess } from "./renewal.ts";
-import { type HoldingTimeDistribution } from "./semi-markov.ts";
+import { type Distribution, SeededRng, vectorToDistribution } from "../shared/core.ts";
+import { CTMC, type GeneratorTransitions } from "../chains/ctmc.ts";
+import { MDP, type MDPConfig, POMDP, type POMDPConfig } from "../models/mdp.ts";
+import { BirthDeathProcess, type BirthDeathProcessConfig, MM1Queue, type MM1QueueConfig } from "../models/queue.ts";
+import { RenewalProcess } from "../models/renewal.ts";
+import { type HoldingTimeDistribution } from "../chains/semi-markov.ts";
 import { createWorkflow, type WorkflowResult, type WorkflowRunInput } from "./workflow.ts";
 
 export interface InventoryControlWorkflowConfig {

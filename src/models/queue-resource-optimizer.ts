@@ -1,4 +1,4 @@
-import { type Distribution } from "./core.ts";
+import { type Distribution } from "../shared/core.ts";
 import {
   MultiClassFiniteQueue,
   type MultiClassFiniteQueueConfig,

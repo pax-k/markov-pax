@@ -4,7 +4,7 @@ import {
   assertFiniteNumber,
   rngOrDefault,
   sampleIndex,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export interface TransitionKernel<S> {
   sample(state: S, rng: Rng): S;

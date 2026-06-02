@@ -1,4 +1,4 @@
-import { DEFAULT_TOLERANCE, type Matrix, assertFiniteNumber } from "./core.ts";
+import { DEFAULT_TOLERANCE, type Matrix, assertFiniteNumber } from "../shared/core.ts";
 
 export interface Complex {
   re: number;

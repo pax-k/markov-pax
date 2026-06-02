@@ -1,4 +1,4 @@
-import { type Rng, assertFiniteNumber } from "./core.ts";
+import { type Rng, assertFiniteNumber } from "../shared/core.ts";
 import { MarkovChain } from "./markov-chain.ts";
 
 export function timeAverage<S>(path: readonly S[], observable: (state: S) => number): number {

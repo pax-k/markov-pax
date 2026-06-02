@@ -10,7 +10,7 @@ import {
   uniqueValues,
   vectorDistance,
   vectorToDistribution,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export interface MDPConfig<S extends string, A extends string> {
   states: readonly S[];

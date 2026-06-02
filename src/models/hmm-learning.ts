@@ -1,4 +1,4 @@
-import { type Distribution, assertFiniteNumber, normalizeDistribution } from "./core.ts";
+import { type Distribution, assertFiniteNumber, normalizeDistribution } from "../shared/core.ts";
 import { HiddenMarkovModel, type HMMConfig } from "./hmm.ts";
 
 export interface HMMTrainingResult<S extends string, O extends string> {

@@ -1,9 +1,9 @@
-import { AbsorbingChain } from "./absorbing-chain.ts";
-import { type WeightedTransitions } from "./core.ts";
-import { BayesianNetwork, type BayesianNetworkConfig } from "./graphical-models.ts";
-import { type GraphAdjacency, pagerank } from "./graph.ts";
-import { HiddenMarkovModel, type HMMConfig } from "./hmm.ts";
-import { MDP, type MDPConfig } from "./mdp.ts";
+import { AbsorbingChain } from "../chains/absorbing-chain.ts";
+import { type WeightedTransitions } from "../shared/core.ts";
+import { BayesianNetwork, type BayesianNetworkConfig } from "../models/graphical-models.ts";
+import { type GraphAdjacency, pagerank } from "../models/graph.ts";
+import { HiddenMarkovModel, type HMMConfig } from "../models/hmm.ts";
+import { MDP, type MDPConfig } from "../models/mdp.ts";
 import {
   createWorkflow,
   type WorkflowResult,

@@ -4,7 +4,7 @@ import {
   type Rng,
   assertFiniteNumber,
   solveLinearSystem,
-} from "./core.ts";
+} from "../shared/core.ts";
 import { MarkovChain } from "./markov-chain.ts";
 
 export function harmonicResidual<S extends string>(

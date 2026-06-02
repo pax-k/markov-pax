@@ -1,4 +1,4 @@
-import { type Rng, assertFiniteNumber, rngOrDefault } from "./core.ts";
+import { type Rng, assertFiniteNumber, rngOrDefault } from "../shared/core.ts";
 
 export interface DiffusionPoint {
   time: number;

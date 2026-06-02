@@ -1,4 +1,4 @@
-import { type Rng, assertFiniteNumber, rngOrDefault, sampleIndex, uniqueValues } from "./core.ts";
+import { type Rng, assertFiniteNumber, rngOrDefault, sampleIndex, uniqueValues } from "../shared/core.ts";
 
 export type ParticleState<N extends string> = Record<N, number>;
 

@@ -3,6 +3,7 @@ import { emergencyDepartmentCapacityWorkflow } from "./emergency-department-capa
 import { fraudDetectionWorkflow } from "./fraud-detection-workflow.ts";
 import { inventoryControlWorkflow } from "./inventory-control-workflow.ts";
 
+export * from "./workflow.ts";
 export * from "./customer-lifecycle-workflow.ts";
 export * from "./emergency-department-capacity-workflow.ts";
 export * from "./fraud-detection-workflow.ts";

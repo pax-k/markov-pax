@@ -1,4 +1,4 @@
-import { type Rng, rngOrDefault } from "./core.ts";
+import { type Rng, rngOrDefault } from "../shared/core.ts";
 
 export interface PiecewiseConstantRate {
   start: number;

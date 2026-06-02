@@ -6,7 +6,7 @@ import {
   sampleIndex,
   uniqueValues,
   vectorToDistribution,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export interface HMMConfig<S extends string, O extends string> {
   states: readonly S[];

@@ -19,7 +19,7 @@ import {
   uniqueValues,
   vectorDistance,
   vectorToDistribution,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export interface MarkovChainOptions {
   normalize?: boolean;

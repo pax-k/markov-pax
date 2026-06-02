@@ -1,9 +1,9 @@
-import { AbsorbingChain } from "./absorbing-chain.ts";
-import { type Distribution, SeededRng, type WeightedTransitions } from "./core.ts";
-import { HigherOrderMarkovModel } from "./higher-order.ts";
-import { MarkovChain } from "./markov-chain.ts";
-import { MDP, type MDPConfig } from "./mdp.ts";
-import { type HoldingTimeDistribution, SemiMarkovProcess } from "./semi-markov.ts";
+import { AbsorbingChain } from "../chains/absorbing-chain.ts";
+import { type Distribution, SeededRng, type WeightedTransitions } from "../shared/core.ts";
+import { HigherOrderMarkovModel } from "../chains/higher-order.ts";
+import { MarkovChain } from "../chains/markov-chain.ts";
+import { MDP, type MDPConfig } from "../models/mdp.ts";
+import { type HoldingTimeDistribution, SemiMarkovProcess } from "../chains/semi-markov.ts";
 import {
   createWorkflow,
   type WorkflowResult,

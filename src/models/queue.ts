@@ -4,7 +4,7 @@ import {
   type Matrix,
   solveLinearSystem,
   uniqueValues,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export interface BirthDeathProcessConfig {
   birthRate: (state: number) => number;

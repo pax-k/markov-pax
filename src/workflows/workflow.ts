@@ -1,12 +1,12 @@
-import { AbsorbingChain } from "./absorbing-chain.ts";
-import { type Distribution, SeededRng, vectorToDistribution } from "./core.ts";
-import { CTMC } from "./ctmc.ts";
-import { BayesianNetwork } from "./graphical-models.ts";
-import { HiddenMarkovModel } from "./hmm.ts";
-import { MarkovChain } from "./markov-chain.ts";
-import { metropolisHastings } from "./mcmc.ts";
-import { MDP, POMDP } from "./mdp.ts";
-import { SemiMarkovProcess } from "./semi-markov.ts";
+import { AbsorbingChain } from "../chains/absorbing-chain.ts";
+import { type Distribution, SeededRng, vectorToDistribution } from "../shared/core.ts";
+import { CTMC } from "../chains/ctmc.ts";
+import { BayesianNetwork } from "../models/graphical-models.ts";
+import { HiddenMarkovModel } from "../models/hmm.ts";
+import { MarkovChain } from "../chains/markov-chain.ts";
+import { metropolisHastings } from "../models/mcmc.ts";
+import { MDP, POMDP } from "../models/mdp.ts";
+import { SemiMarkovProcess } from "../chains/semi-markov.ts";
 
 export interface WorkflowSetup<S extends string = string, A extends string = string, O extends string = string> {
   name?: string;

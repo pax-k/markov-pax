@@ -1,5 +1,5 @@
-import { type Rng, assertFiniteNumber, rngOrDefault } from "./core.ts";
-import { autocorrelation, effectiveSampleSize } from "./ergodic.ts";
+import { type Rng, assertFiniteNumber, rngOrDefault } from "../shared/core.ts";
+import { autocorrelation, effectiveSampleSize } from "../chains/ergodic.ts";
 import { type SamplerResult, type SamplerRunOptions } from "./mcmc.ts";
 
 export interface MalaConfig {

@@ -6,7 +6,7 @@ import {
   matrixMultiply,
   subtractMatrices,
   vectorToDistribution,
-} from "./core.ts";
+} from "../shared/core.ts";
 import { MarkovChain, type MarkovChainOptions } from "./markov-chain.ts";
 
 export class AbsorbingChain<S extends string> {

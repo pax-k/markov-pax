@@ -4,7 +4,7 @@ import {
   normalizeDistribution,
   rngOrDefault,
   sampleIndex,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export type BranchingClassification = "subcritical" | "critical" | "supercritical";
 

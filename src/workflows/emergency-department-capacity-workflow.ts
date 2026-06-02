@@ -1,12 +1,12 @@
-import { type Distribution, type WeightedTransitions } from "./core.ts";
-import { MarkovChain } from "./markov-chain.ts";
-import { POMDP, type POMDPConfig } from "./mdp.ts";
+import { type Distribution, type WeightedTransitions } from "../shared/core.ts";
+import { MarkovChain } from "../chains/markov-chain.ts";
+import { POMDP, type POMDPConfig } from "../models/mdp.ts";
 import {
   QueueResourceOptimizer,
   type QueueResourceCandidate,
   type QueueResourceEvaluation,
   type QueueResourceOptimizerConfig,
-} from "./queue-resource-optimizer.ts";
+} from "../models/queue-resource-optimizer.ts";
 import {
   createWorkflow,
   type WorkflowResult,

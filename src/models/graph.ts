@@ -7,7 +7,7 @@ import {
   uniqueValues,
   vectorDistance,
   vectorToDistribution,
-} from "./core.ts";
+} from "../shared/core.ts";
 
 export type GraphAdjacency<N extends string = string> = Record<N, readonly N[]>;
 
