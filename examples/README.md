@@ -23,9 +23,26 @@ bun test examples/modules/markov-chain.test.ts
 
 ## Folders
 
-- `modules`: focused examples for one SDK module at a time, including finite chains, HMMs, MDPs, queues, arrival processes, resource optimizers, kernels, SDEs, graphical models, particle systems, and quantum channels.
-- `theory`: mathematical identities and concepts implemented with the SDK, from matrix powers through queueing formulas, renewal, ergodic, branching, and quantum examples.
-- `real-world`: applied examples such as churn, reliability, triage, queues, ED capacity, PageRank, Bayesian inference, maintenance planning, epidemic spread, diagnosis, finance, and quantum noise.
+- `modules`: focused examples for one SDK module at a time, including finite chains, HMMs, MDPs, queues, arrival processes, resource optimizers, kernels, SDEs, trace logic, graphical models, particle systems, and quantum channels.
+- `theory`: mathematical identities and concepts implemented with the SDK, from matrix powers through queueing formulas, renewal, trace formulas, ergodic, branching, and quantum examples.
+- `real-world`: applied examples such as churn, reliability, triage, queues, ED capacity, PageRank, Bayesian inference, maintenance planning, limited sensors, epidemic spread, diagnosis, finance, and quantum noise.
+
+## Trace Logic Layer
+
+Trace examples model observer windows as finite Markov chains with visible subwindows. They are executable finite toy models, not claims that the SDK derives physics or consciousness.
+
+- `modules/trace-chain`: induced visible dynamics through hidden states.
+- `modules/trace-diagnostics`: parent-support trace kernels, finite-sample trace estimation, and stationary restriction checks.
+- `modules/observer-window`: named observer windows, stationary beliefs, and sequence likelihoods.
+- `modules/trace-logic`: local meet, join, and complement inside one parent window.
+- `modules/recursive-trace-system`: policies over observer-window names and traced policies.
+- `modules/markov-geometry`: Dirichlet forms, conductance, and metastable communities.
+- `modules/measure-logic`: finite event logic over probability measures.
+- `modules/no-cloning`: linear Markov no-cloning demonstration.
+- `real-world/limited-sensor-hidden-corridor`: a sensor that cannot observe maintenance states.
+- `real-world/censored-machine-telemetry`: machine telemetry where hidden calibration states explain visible jumps.
+- `real-world/adaptive-observer-policy`: switching between coarse and diagnostic monitoring windows.
+- `real-world/apparent-jump-hidden-state-model`: hidden-corridor apparent jump as a finite toy model.
 
 ## Combined Workflows
 

@@ -1751,3 +1751,100 @@ The core SDK design principle:
 ```txt
 Make the model easy to use at a high level, but keep the underlying math visible.
 ```
+
+## 38. Trace Logic Layer
+
+The SDK now includes a finite-state trace layer for observer-window style models.
+This layer implements standard finite Markov-chain constructions and uses
+physics/consciousness language only as modeling analogy.
+
+Given a parent chain with visible states `A` and hidden states `B`, the induced
+visible trace is:
+
+```txt
+P_trace = P_AA + P_AB (I - P_BB)^-1 P_BA
+```
+
+This differs from simply deleting hidden states and renormalizing rows. Hidden
+states may contain corridors through which probability leaves the visible
+window and later re-enters. The trace matrix is the exact finite-chain dynamics
+seen at re-entry times, provided hidden states return to the visible window with
+probability one.
+
+The trace layer exposes:
+
+```txt
+traceChain(parent, visibleStates)
+traceKernelOnParent(parent, visibleStates)
+naiveRestriction(parent, visibleStates)
+estimateTraceFromPath(path, visibleStates)
+traceObservationDiagnostics(parent, visibleStates, path)
+restrictedStationaryBelief(parent, visibleStates)
+traceStationaryDiagnostics(parent, visibleStates)
+ObserverWindow
+EnhancedMarkovChain
+counterDilation(fullPath, visibleStates)
+TracePoset
+localTraceMeet / localTraceJoin / localTraceComplement
+PolicyOverWindows
+RecursiveTraceSystem
+dirichletForm / conductance / metastableCommunities
+finite event logic over probability measures
+entropyRate / determinantInvariant / traceDynamicsInvariants
+Markov linear no-cloning demonstrations
+```
+
+There are two useful representations of a trace:
+
+```txt
+1. As a Markov chain on only the visible states.
+2. As a semimarkovian kernel on the parent state space whose support is the
+   visible window and whose hidden rows are zero.
+```
+
+The second representation is useful when comparing many observer windows that
+all live inside the same parent system. The SDK exposes it with
+`traceKernelOnParent`.
+
+For an irreducible finite parent chain, the stationary distribution of the
+trace equals the normalized restriction of the parent stationary distribution
+to the visible window:
+
+```txt
+pi_trace(a) = pi_parent(a) / sum_{b in A} pi_parent(b)
+```
+
+The SDK exposes this as `restrictedStationaryBelief` and
+`traceStationaryDiagnostics`. This is the finite SDK analogue of the stationary
+measure map from trace order to probability-measure logic.
+
+Real observations are finite samples, not infinite traces. Given a full or
+partially reconstructed path, `estimateTraceFromPath` filters to visible states
+and estimates the transition matrix between consecutive visible observations.
+`traceObservationDiagnostics` compares that empirical visible chain with the
+theoretical trace induced by the parent chain.
+
+The trace layer also exposes finite dynamics diagnostics:
+
+```txt
+entropyRate(P) = - sum_i pi_i sum_j P_ij log2(P_ij)
+determinantInvariant(P) = det(P)
+```
+
+These are ordinary finite-matrix quantities. They can be used to compare
+predictability, degeneracy, or coarse-graining behavior. They are not presented
+as physical mass, spin, or a derivation of spacetime.
+
+Interpretation boundaries:
+
+```txt
+observer window = named finite Markov chain + visible states
+belief = stationary distribution of an observer window
+counter dilation = fewer visible ticks than full parent-chain ticks
+apparent jump = hidden-corridor toy model
+local trace logic = Boolean set operations inside one fixed parent window
+```
+
+The SDK does not claim to derive relativity, quantum field theory, or
+consciousness. It provides executable finite models for exploring those analogies
+and for testing which claims survive concrete Markov-chain calculations.

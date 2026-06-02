@@ -44,6 +44,11 @@ describe("package root exports", () => {
     expect(SDK.customerLifecycleWorkflow).toBeFunction();
     expect(SDK.inventoryControlWorkflow).toBeFunction();
     expect(SDK.emergencyDepartmentCapacityWorkflow).toBeFunction();
+    expect(SDK.traceChain).toBeFunction();
+    expect(SDK.traceKernelOnParent).toBeFunction();
+    expect(SDK.traceStationaryDiagnostics).toBeFunction();
+    expect(SDK.estimateTraceFromPath).toBeFunction();
+    expect(SDK.entropyRate).toBeFunction();
     expect(SDK.workflows.fraudDetection).toBeFunction();
     expect(SDK.workflows.emergencyDepartmentCapacity).toBeFunction();
   });
