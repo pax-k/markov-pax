@@ -23,8 +23,8 @@ bun test examples/modules/markov-chain.test.ts
 
 ## Folders
 
-- `modules`: focused examples for one SDK module at a time.
-- `theory`: mathematical identities and concepts implemented with the SDK.
-- `real-world`: applied examples such as churn, reliability, triage, queues, PageRank, and Bayesian inference.
+- `modules`: focused examples for one SDK module at a time, including finite chains, HMMs, MDPs, kernels, SDEs, graphical models, particle systems, and quantum channels.
+- `theory`: mathematical identities and concepts implemented with the SDK, from matrix powers through renewal, ergodic, branching, and quantum examples.
+- `real-world`: applied examples such as churn, reliability, triage, queues, PageRank, Bayesian inference, maintenance planning, epidemic spread, diagnosis, finance, and quantum noise.
 
 The correctness and edge-case test suite lives in [`../tests`](../tests/). These examples avoid exhaustive failure-mode testing so they can stay readable.
