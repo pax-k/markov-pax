@@ -11,7 +11,13 @@ describe("package root exports", () => {
     expect(SDK.POMDP).toBeFunction();
     expect(SDK.RandomWalkGraph).toBeFunction();
     expect(SDK.MM1Queue).toBeFunction();
+    expect(SDK.MMcQueue).toBeFunction();
+    expect(SDK.MMcKQueue).toBeFunction();
+    expect(SDK.FiniteCapacityQueue).toBeFunction();
+    expect(SDK.MultiClassFiniteQueue).toBeFunction();
     expect(SDK.BirthDeathProcess).toBeFunction();
+    expect(SDK.NonHomogeneousPoissonProcess).toBeFunction();
+    expect(SDK.QueueResourceOptimizer).toBeFunction();
     expect(SDK.SeededRng).toBeFunction();
     expect(SDK.matrixMultiply).toBeFunction();
     expect(SDK.pagerank).toBeFunction();
@@ -37,6 +43,8 @@ describe("package root exports", () => {
     expect(SDK.fraudDetectionWorkflow).toBeFunction();
     expect(SDK.customerLifecycleWorkflow).toBeFunction();
     expect(SDK.inventoryControlWorkflow).toBeFunction();
+    expect(SDK.emergencyDepartmentCapacityWorkflow).toBeFunction();
     expect(SDK.workflows.fraudDetection).toBeFunction();
+    expect(SDK.workflows.emergencyDepartmentCapacity).toBeFunction();
   });
 });

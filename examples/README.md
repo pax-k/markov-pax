@@ -23,9 +23,9 @@ bun test examples/modules/markov-chain.test.ts
 
 ## Folders
 
-- `modules`: focused examples for one SDK module at a time, including finite chains, HMMs, MDPs, kernels, SDEs, graphical models, particle systems, and quantum channels.
-- `theory`: mathematical identities and concepts implemented with the SDK, from matrix powers through renewal, ergodic, branching, and quantum examples.
-- `real-world`: applied examples such as churn, reliability, triage, queues, PageRank, Bayesian inference, maintenance planning, epidemic spread, diagnosis, finance, and quantum noise.
+- `modules`: focused examples for one SDK module at a time, including finite chains, HMMs, MDPs, queues, arrival processes, resource optimizers, kernels, SDEs, graphical models, particle systems, and quantum channels.
+- `theory`: mathematical identities and concepts implemented with the SDK, from matrix powers through queueing formulas, renewal, ergodic, branching, and quantum examples.
+- `real-world`: applied examples such as churn, reliability, triage, queues, ED capacity, PageRank, Bayesian inference, maintenance planning, epidemic spread, diagnosis, finance, and quantum noise.
 
 ## Combined Workflows
 
@@ -33,6 +33,7 @@ The larger real-world examples combine multiple modules into applied decision wo
 
 - `saas-growth-lab`: lifecycle forecasting, churn absorption, journey prediction, retention policy, and conversion uncertainty.
 - `hospital-capacity-policy`: patient-flow durations, bed availability, triage belief updates, diagnosis, treatment policy, and ER queue pressure.
+- `emergency-department-capacity`: acuity-priority queues, ambulance surge arrivals, beds, servers, and capacity action recommendation.
 - `sre-incident-simulator`: reliability CTMCs, incident renewal, mitigation policy, support queues, and long-run availability.
 - `fraud-kill-chain`: HMM compromise inference, Bayesian alert fusion, loss absorption, entity ranking, response policy, and uncertainty estimation.
 - `search-recommendation-quality`: PageRank, random walks, higher-order navigation, intent inference, and recommendation policy.
@@ -48,6 +49,7 @@ observations -> infer -> forecast -> recommend -> simulate -> estimate uncertain
 ```
 
 - `modules/workflow`: generic `createWorkflow(...)` usage with `infer`, forecast, decision, simulation, and uncertainty stages.
+- `modules/emergency-department-workflow`: ED capacity planning as a high-level workflow over queueing primitives.
 - `real-world/high-level-fraud-workflow`: account observations become risk belief, response action, entity ranking, and alert uncertainty.
 - `real-world/high-level-customer-lifecycle`: SaaS lifecycle state becomes forecast, retention action, journey prediction, and conversion uncertainty.
 - `real-world/high-level-inventory-control`: noisy stock signals become reorder plans, supplier availability, demand pressure, and backlog estimates.
