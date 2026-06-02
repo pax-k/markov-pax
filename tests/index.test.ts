@@ -18,6 +18,18 @@ describe("package root exports", () => {
     expect(SDK.BirthDeathProcess).toBeFunction();
     expect(SDK.NonHomogeneousPoissonProcess).toBeFunction();
     expect(SDK.QueueResourceOptimizer).toBeFunction();
+    expect(SDK.SupplyNetwork).toBeFunction();
+    expect(SDK.DisruptedSupplyNetwork).toBeFunction();
+    expect(SDK.RouteAvailabilityModel).toBeFunction();
+    expect(SDK.InventorySystem).toBeFunction();
+    expect(SDK.PerishableInventory).toBeFunction();
+    expect(SDK.minCostFlow).toBeFunction();
+    expect(SDK.multiProductFlow).toBeFunction();
+    expect(SDK.LocationAllocationOptimizer).toBeFunction();
+    expect(SDK.accessibilityMetrics).toBeFunction();
+    expect(SDK.resilienceMetrics).toBeFunction();
+    expect(SDK.ConstrainedMDP).toBeFunction();
+    expect(SDK.MultiObjectiveMDP).toBeFunction();
     expect(SDK.SeededRng).toBeFunction();
     expect(SDK.matrixMultiply).toBeFunction();
     expect(SDK.pagerank).toBeFunction();
@@ -44,6 +56,7 @@ describe("package root exports", () => {
     expect(SDK.customerLifecycleWorkflow).toBeFunction();
     expect(SDK.inventoryControlWorkflow).toBeFunction();
     expect(SDK.emergencyDepartmentCapacityWorkflow).toBeFunction();
+    expect(SDK.disasterSupplyChainWorkflow).toBeFunction();
     expect(SDK.traceChain).toBeFunction();
     expect(SDK.traceKernelOnParent).toBeFunction();
     expect(SDK.traceStationaryDiagnostics).toBeFunction();
@@ -51,5 +64,6 @@ describe("package root exports", () => {
     expect(SDK.entropyRate).toBeFunction();
     expect(SDK.workflows.fraudDetection).toBeFunction();
     expect(SDK.workflows.emergencyDepartmentCapacity).toBeFunction();
+    expect(SDK.workflows.disasterSupplyChain).toBeFunction();
   });
 });

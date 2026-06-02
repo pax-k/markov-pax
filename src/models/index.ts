@@ -1,6 +1,7 @@
 export * from "./advanced-mcmc.ts";
 export * from "./arrival-process.ts";
 export * from "./branching.ts";
+export * from "./constrained-mdp.ts";
 export * from "./graph.ts";
 export * from "./graphical-models.ts";
 export * from "./hmm.ts";
@@ -13,3 +14,4 @@ export * from "./queue.ts";
 export * from "./queue-resource-optimizer.ts";
 export * from "./renewal.ts";
 export * from "./sde.ts";
+export * from "./supply-chain.ts";
