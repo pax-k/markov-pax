@@ -21,3 +21,5 @@ export * from "./renewal.ts";
 export * from "./sde.ts";
 export * from "./semi-markov.ts";
 export * from "./spectral.ts";
+export * from "./workflow.ts";
+export * from "./workflows.ts";

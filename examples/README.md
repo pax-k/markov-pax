@@ -39,4 +39,17 @@ The larger real-world examples combine multiple modules into applied decision wo
 - `supply-chain-control`: demand renewal, supplier reliability, inventory beliefs, queue pressure, backlog distribution, and reorder policy.
 - `credit-market-regime-risk`: asset diffusion paths, hidden market regimes, rating migration, workout absorption, spectral behavior, and default uncertainty.
 
+## High-Level Workflows
+
+The `workflow` API is for users who want the applied pipeline without manually wiring every Markov primitive:
+
+```text
+observations -> infer -> forecast -> recommend -> simulate -> estimate uncertainty
+```
+
+- `modules/workflow`: generic `createWorkflow(...)` usage with `infer`, forecast, decision, simulation, and uncertainty stages.
+- `real-world/high-level-fraud-workflow`: account observations become risk belief, response action, entity ranking, and alert uncertainty.
+- `real-world/high-level-customer-lifecycle`: SaaS lifecycle state becomes forecast, retention action, journey prediction, and conversion uncertainty.
+- `real-world/high-level-inventory-control`: noisy stock signals become reorder plans, supplier availability, demand pressure, and backlog estimates.
+
 The correctness and edge-case test suite lives in [`../tests`](../tests/). These examples avoid exhaustive failure-mode testing so they can stay readable.

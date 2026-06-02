@@ -32,5 +32,11 @@ describe("package root exports", () => {
     expect(SDK.GaltonWatsonProcess).toBeFunction();
     expect(SDK.voterModel).toBeFunction();
     expect(SDK.QuantumChannel).toBeFunction();
+    expect(SDK.MarkovWorkflow).toBeFunction();
+    expect(SDK.createWorkflow).toBeFunction();
+    expect(SDK.fraudDetectionWorkflow).toBeFunction();
+    expect(SDK.customerLifecycleWorkflow).toBeFunction();
+    expect(SDK.inventoryControlWorkflow).toBeFunction();
+    expect(SDK.workflows.fraudDetection).toBeFunction();
   });
 });
