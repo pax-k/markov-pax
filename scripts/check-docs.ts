@@ -1,7 +1,10 @@
+import { existsSync } from "node:fs";
+
 const root = new URL("../", import.meta.url);
 
 const requiredDocuments = [
   "README.md",
+  "DEFENSE_TECH.md",
   "IMPLEMENTATION_STATUS.md",
   "EXAMPLES_1.md",
   "EXAMPLES_2.md",
@@ -28,6 +31,16 @@ const evidencePaths = [
   "examples/modules/markov-geometry.test.ts",
   "examples/modules/measure-logic.test.ts",
   "examples/modules/no-cloning.test.ts",
+  "examples/defense-tech/asset-health-and-readiness.test.ts",
+  "examples/defense-tech/contested-logistics-and-sustainment.test.ts",
+  "examples/defense-tech/autonomy-assurance.test.ts",
+  "examples/defense-tech/cyber-mission-assurance.test.ts",
+  "examples/defense-tech/multi-sensor-state-estimation.test.ts",
+  "examples/defense-tech/electromagnetic-spectrum-resilience.test.ts",
+  "examples/defense-tech/multi-agent-team-resilience.test.ts",
+  "examples/defense-tech/base-infrastructure-resilience.test.ts",
+  "examples/defense-tech/training-and-force-readiness.test.ts",
+  "examples/defense-tech/decision-support-policy-evaluation.test.ts",
 ] as const;
 
 const errors: string[] = [];
@@ -38,17 +51,44 @@ for (const path of [...requiredDocuments, ...evidencePaths]) {
   }
 }
 
-for (const path of ["README.md", "IMPLEMENTATION_STATUS.md", "EXAMPLES_1.md", "EXAMPLES_2.md", "THEORY.md"] as const) {
-  const content = await Bun.file(new URL(path, root)).text();
+for (const path of ["README.md", "examples/README.md", "DEFENSE_TECH.md", "IMPLEMENTATION_STATUS.md", "EXAMPLES_1.md", "EXAMPLES_2.md", "THEORY.md"] as const) {
+  const documentUrl = new URL(path, root);
+  const content = await Bun.file(documentUrl).text();
   if (content.includes("\uFFFC")) {
     errors.push(`${path} contains a lost object-replacement marker`);
   }
 
-  for (const match of content.matchAll(/\]\((\.\/[^)#]+)(?:#[^)]*)?\)/g)) {
+  for (const match of content.matchAll(/\]\(((?:\.\.?\/)[^\s)#]+)(?:#[^)]*)?\)/g)) {
     const target = match[1]!;
-    if (!(await Bun.file(new URL(target, root)).exists())) {
+    if (!existsSync(new URL(target, documentUrl))) {
       errors.push(`${path} links to a missing local file: ${target}`);
     }
+  }
+}
+
+const readme = await Bun.file(new URL("README.md", root)).text();
+const defenseCatalogUrl = "https://github.com/pax-k/markov-pax/blob/main/DEFENSE_TECH.md";
+if (!readme.includes(defenseCatalogUrl)) {
+  errors.push("README.md must use the absolute GitHub link for DEFENSE_TECH.md");
+}
+
+const defenseCatalog = await Bun.file(new URL("DEFENSE_TECH.md", root)).text();
+for (const marker of [
+  "project hypothesis",
+  "synthetic",
+  "not operational validation",
+  "targeting",
+  "weapon assignment",
+  "autonomous lethal decisions",
+  "classified",
+]) {
+  if (!defenseCatalog.includes(marker)) {
+    errors.push(`DEFENSE_TECH.md must contain the boundary marker: ${marker}`);
+  }
+}
+for (const path of evidencePaths.filter((path) => path.startsWith("examples/defense-tech/"))) {
+  if (!defenseCatalog.includes(`./${path}`)) {
+    errors.push(`DEFENSE_TECH.md must link the evidence path: ${path}`);
   }
 }
 

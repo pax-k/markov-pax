@@ -8,6 +8,7 @@ Status meanings:
 - **Adjacent**: an executable example covers part of the problem, but not the full domain workflow.
 - **Building blocks**: general SDK modules can support the work, but no domain workflow exists.
 - **Finite research model**: code implements a bounded mathematical example. It does not prove the wider interpretation.
+- **Executable synthetic example**: one deterministic repository example demonstrates a bounded composition. It is not a reusable workflow or an externally validated capability.
 - **Not implemented**: no supporting code exists.
 
 ## Application areas from EXAMPLES_1
@@ -26,6 +27,23 @@ Status meanings:
 | Manufacturing reliability | Adjacent | [operations and reliability example](./examples/real-world/operations-and-reliability.test.ts) and [censored telemetry example](./examples/real-world/censored-machine-telemetry.test.ts) | Production schema, rework and scrap model, maintenance actions, and plant-data validation. |
 | Drug discovery | Building blocks | [Metropolis-Hastings](./src/models/mcmc.ts) and [advanced MCMC](./src/models/advanced-mcmc.ts) | Molecular representation, valid edit proposals, scientific scoring, benchmarks, and experimental validation. |
 | AI-agent runtime safety | Building blocks | [MDP/POMDP](./src/models/mdp.ts), [trace policies](./src/trace/index.ts), and [workflow framework](./src/workflows/workflow.ts) | Agent event schema, enforceable policy language, runtime monitor, model checking, and adversarial tests. |
+
+## Defense Tech Examples
+
+Every item below has the status **Executable synthetic example**. The files demonstrate current public SDK compositions with invented parameters. They are not reusable Defense Tech workflows, externally validated capabilities, operational recommendations, or evidence from a real platform or environment. The authoritative scope and exclusions are in [DEFENSE_TECH.md](./DEFENSE_TECH.md).
+
+| Theme | Status | Executable evidence | Boundary or missing proof |
+| --- | --- | --- | --- |
+| Asset health and readiness | Executable synthetic example | [example](./examples/defense-tech/asset-health-and-readiness.test.ts) | No real asset data, calibration, domain validation, or deployment. |
+| Contested logistics and sustainment | Executable synthetic example | [example](./examples/defense-tech/contested-logistics-and-sustainment.test.ts) | No real routes, inventories, disruptions, constraints, or operational validation. |
+| Autonomy assurance | Executable synthetic example | [example](./examples/defense-tech/autonomy-assurance.test.ts) | No real platform telemetry, assurance case, certification, or autonomous authority. |
+| Cyber mission assurance | Executable synthetic example | [example](./examples/defense-tech/cyber-mission-assurance.test.ts) | No real vulnerability, network, adversary, control, or operational validation. |
+| Multi-sensor state estimation | Executable synthetic example | [example](./examples/defense-tech/multi-sensor-state-estimation.test.ts) | No real sensors, measurements, fusion calibration, or field validation. |
+| Electromagnetic-spectrum resilience | Executable synthetic example | [example](./examples/defense-tech/electromagnetic-spectrum-resilience.test.ts) | No operational frequency, waveform, platform, environment, or field validation. |
+| Multi-agent team resilience | Executable synthetic example | [example](./examples/defense-tech/multi-agent-team-resilience.test.ts) | No real team topology, agents, compromise data, or organizational validation. |
+| Base infrastructure resilience | Executable synthetic example | [example](./examples/defense-tech/base-infrastructure-resilience.test.ts) | No real base, infrastructure topology, failure rates, or engineering validation. |
+| Training and force readiness | Executable synthetic example | [example](./examples/defense-tech/training-and-force-readiness.test.ts) | No real personnel, training records, readiness standard, or workforce validation. |
+| Decision-support policy evaluation | Executable synthetic example | [example](./examples/defense-tech/decision-support-policy-evaluation.test.ts) | No operational scenarios, policy authority, representative data, or external validation. |
 
 ## Trace and observer claims from EXAMPLES_2
 

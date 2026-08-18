@@ -1,4 +1,4 @@
-# Public SDK Repair Status
+# Public SDK and Defense Tech Example Status
 
 Status: complete
 
@@ -23,4 +23,4 @@ release-ready, but do not publish it.
 
 ## Next Action
 
-Commit and push only after user approval. Then verify the hosted GitHub CI run before publication.
+Commit and push the completed Defense Tech example suite only after separate user approval. Then verify the hosted GitHub CI run. Publication and deployment remain out of scope.

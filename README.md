@@ -52,6 +52,10 @@ const fitted = MarkovChain.fit(
 
 See [the implementation status](./IMPLEMENTATION_STATUS.md) for the exact support level and proof path for each main area. See [the examples guide](./examples/README.md) for the learning path.
 
+## Defense Tech Examples
+
+The repository includes ten deterministic Defense Tech examples for synthetic research, readiness, assurance, training, and human-supervised planning. They do not use real operational data and do not validate an operational capability. See the [authoritative Defense Tech catalog and safety boundary](https://github.com/pax-k/markov-pax/blob/main/DEFENSE_TECH.md).
+
 ## Evidence and limits
 
 The automated checks cover types, behavior, coverage, documentation paths, the ESM build, declarations, package contents, and a clean consumer install. Run one example with:
@@ -71,6 +75,7 @@ The domain examples use small synthetic data. They prove that the code path runs
 - [Theory and API guide](./THEORY.md)
 - [Research-backed application map](./EXAMPLES_1.md)
 - [Transcript-derived trace research notes](./EXAMPLES_2.md)
+- [Defense Tech example catalog and safety boundary](https://github.com/pax-k/markov-pax/blob/main/DEFENSE_TECH.md)
 - [Implementation status and priorities](./IMPLEMENTATION_STATUS.md)
 - [Contributing](./CONTRIBUTING.md)
 - [Security policy](./SECURITY.md)
