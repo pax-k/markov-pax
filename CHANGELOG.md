@@ -10,6 +10,7 @@ All notable changes to this project are recorded in this file.
 - `MarkovChain.fit` with optional smoothing and an explicit state set.
 - Bounded, integer-safe enumeration for trace windows and conductance cuts.
 - Implementation-status, contribution, security, and release documents.
+- Ten deterministic, executable Defense Tech examples with an authoritative synthetic-use and safety boundary.
 
 ### Changed
 
