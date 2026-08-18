@@ -75,4 +75,15 @@ describe("finite local trace logic", () => {
     expect(() => localTraceJoin(parent, ["a"], ["missing" as "a"])).toThrow(/unknown visible/i);
     expect(() => localTraceComplement(parent, ["missing" as "a"])).toThrow(/unknown visible/i);
   });
+
+  test("enumerates state subsets correctly above the 32-bit mask limit", () => {
+    const states = Array.from({ length: 33 }, (_value, index) => `s${index}`);
+    const row = Object.fromEntries(states.map((state) => [state, 1 / states.length]));
+    const chain = MarkovChain.from(Object.fromEntries(states.map((state) => [state, row])));
+    const parent = createObserverWindow({ chain });
+
+    const windows = enumerateTraceWindows(parent, { maxWindows: 1 });
+    expect(windows[0]!.visibleStates).toEqual(["s0"]);
+    expect(() => enumerateTraceWindows(parent)).toThrow(/maxWindows/i);
+  });
 });

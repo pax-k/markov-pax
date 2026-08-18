@@ -26,6 +26,11 @@ export interface MarkovChainOptions {
   tolerance?: number;
 }
 
+export interface MarkovChainFitOptions<S extends string> {
+  states?: readonly S[];
+  smoothing?: number;
+}
+
 export interface SimulateOptions {
   rng?: Rng;
 }
@@ -89,6 +94,48 @@ export class MarkovChain<S extends string> {
     options: MarkovChainOptions = {},
   ): MarkovChain<S> {
     return new MarkovChain(states, matrix, options);
+  }
+
+  static fit<S extends string>(
+    path: readonly S[],
+    options: MarkovChainFitOptions<S> = {},
+  ): MarkovChain<S> {
+    if (path.length < 2) {
+      throw new Error("MarkovChain.fit requires at least two observed states");
+    }
+
+    const states = options.states
+      ? uniqueValues(options.states, "state")
+      : [...new Set(path)];
+    const stateSet = new Set(states);
+    for (const state of path) {
+      if (!stateSet.has(state)) {
+        throw new Error(`Unknown state in observed path: ${String(state)}`);
+      }
+    }
+
+    const smoothing = options.smoothing ?? 0;
+    if (!Number.isFinite(smoothing) || smoothing < 0) {
+      throw new Error(`smoothing must be a nonnegative finite number; received ${smoothing}`);
+    }
+
+    const indexByState = new Map(states.map((state, index) => [state, index]));
+    const counts = states.map(() => states.map(() => smoothing));
+    for (let index = 0; index < path.length - 1; index++) {
+      const from = indexByState.get(path[index]!)!;
+      const to = indexByState.get(path[index + 1]!)!;
+      counts[from]![to]! += 1;
+    }
+
+    const matrix = counts.map((row, index) => {
+      const total = row.reduce((sum, value) => sum + value, 0);
+      if (total === 0) {
+        throw new Error(`State ${String(states[index])} has no outgoing observations; add smoothing or more data`);
+      }
+      return row.map((value) => value / total);
+    });
+
+    return new MarkovChain(states, matrix);
   }
 
   transitionProbability(from: S, to: S): number {

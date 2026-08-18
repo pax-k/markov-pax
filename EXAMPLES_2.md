@@ -1,3 +1,13 @@
+# Transcript-Derived Trace Research Notes
+
+## Provenance and use boundary
+
+This file is a normalized summary of a transcript. The repository does not contain the source recording, speaker metadata, transcript date, or an independent verification record. The timestamps below refer only to that unavailable transcript.
+
+This file is research input. It is not SDK documentation and it is not proof. Statements attributed to Hoffman or collaborators are transcript claims unless a separate source is given. The final status section separates standard mathematics, claimed contributions, and conjectures. [IMPLEMENTATION_STATUS.md](./IMPLEMENTATION_STATUS.md) separately states what this repository implements.
+
+## Consolidated transcript material
+
 Below is the Markov-chain-related material from the transcript, consolidated and normalized.
 
 Core Markov-chain framework

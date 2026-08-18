@@ -36,6 +36,7 @@ describe("Markov geometry and communities", () => {
     expect(cuts[0]!.states).toEqual(["a", "b"]);
     expect(cuts[0]!.conductance).toBeCloseTo(0.1);
     expect(metastableCommunities(chain, { threshold: 0.2, limit: 3 }).length).toBeGreaterThan(0);
+    expect(() => lowConductanceCuts(chain, { maxCandidates: 1 })).toThrow(/candidate/i);
   });
 
   test("rejects invalid geometry inputs and unsupported nonreversible distances", () => {

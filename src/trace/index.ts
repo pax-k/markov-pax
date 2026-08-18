@@ -24,6 +24,20 @@ export interface TraceOptions {
   tolerance?: number;
 }
 
+export interface TraceWindowEnumerationOptions {
+  includeEmpty?: boolean;
+  maxWindows?: number;
+}
+
+export interface ConductanceSearchOptions {
+  maxCutSize?: number;
+  limit?: number;
+  maxCandidates?: number;
+}
+
+const MAX_FULL_TRACE_ENUMERATION_STATES = 12;
+const DEFAULT_MAX_CONDUCTANCE_CANDIDATES = 65_536;
+
 export interface SimulateTraceOptions {
   visibleSteps: number;
   maxFullSteps?: number;
@@ -578,14 +592,24 @@ export function isTraceOf<C extends string, P extends string>(
 
 export function enumerateTraceWindows<S extends string>(
   parent: ObserverWindow<S>,
-  options: { includeEmpty?: boolean; maxWindows?: number } = {},
+  options: TraceWindowEnumerationOptions = {},
 ): TraceLogicElement<S>[] {
   const includeEmpty = options.includeEmpty ?? false;
   const maxWindows = options.maxWindows ?? Number.POSITIVE_INFINITY;
+  validateNonnegativeIntegerOrInfinity(maxWindows, "maxWindows");
+  if (parent.chain.states.length > MAX_FULL_TRACE_ENUMERATION_STATES && options.maxWindows === undefined) {
+    throw new Error(
+      `maxWindows is required when enumerating more than ${MAX_FULL_TRACE_ENUMERATION_STATES} states`,
+    );
+  }
+
   const elements: TraceLogicElement<S>[] = [];
-  const startMask = includeEmpty ? 0 : 1;
-  for (let mask = startMask; mask < 2 ** parent.chain.states.length && elements.length < maxWindows; mask++) {
-    const visible = parent.chain.states.filter((_state, index) => (mask & (1 << index)) !== 0);
+  const startMask = includeEmpty ? 0n : 1n;
+  const endMask = 1n << BigInt(parent.chain.states.length);
+  for (let mask = startMask; mask < endMask && elements.length < maxWindows; mask++) {
+    const visible = parent.chain.states.filter(
+      (_state, index) => (mask & (1n << BigInt(index))) !== 0n,
+    );
     elements.push(makeTraceLogicElement(parent, visible));
   }
   return elements;
@@ -754,25 +778,46 @@ export function effectiveResistanceDistance<S extends string>(
 
 export function lowConductanceCuts<S extends string>(
   chain: MarkovChain<S>,
-  options: { maxCutSize?: number; limit?: number } = {},
+  options: ConductanceSearchOptions = {},
 ): ConductanceCut<S>[] {
+  if (chain.states.length < 2) return [];
   const maxCutSize = options.maxCutSize ?? Math.floor(chain.states.length / 2);
   const limit = options.limit ?? Number.POSITIVE_INFINITY;
+  const maxCandidates = options.maxCandidates ?? DEFAULT_MAX_CONDUCTANCE_CANDIDATES;
+  if (!Number.isInteger(maxCutSize) || maxCutSize < 1 || maxCutSize >= chain.states.length) {
+    throw new Error(`maxCutSize must be an integer from 1 to ${chain.states.length - 1}`);
+  }
+  validateNonnegativeIntegerOrInfinity(limit, "limit");
+  if (!Number.isSafeInteger(maxCandidates) || maxCandidates < 1) {
+    throw new Error("maxCandidates must be a positive safe integer");
+  }
+
+  const candidateCount = countSubsetCandidates(chain.states.length, maxCutSize, maxCandidates);
+  if (candidateCount > maxCandidates) {
+    throw new Error(
+      `Exact conductance search has more than ${maxCandidates} candidate subsets; reduce maxCutSize or increase maxCandidates`,
+    );
+  }
+
   const cuts: ConductanceCut<S>[] = [];
-  for (let mask = 1; mask < 2 ** chain.states.length - 1; mask++) {
-    const states = chain.states.filter((_state, index) => (mask & (1 << index)) !== 0);
-    if (states.length > maxCutSize) continue;
-    cuts.push({ states, conductance: conductance(chain, states) });
+  for (let size = 1; size <= maxCutSize; size++) {
+    for (const states of combinations(chain.states, size)) {
+      cuts.push({ states, conductance: conductance(chain, states) });
+    }
   }
   return cuts.sort((a, b) => a.conductance - b.conductance).slice(0, limit);
 }
 
 export function metastableCommunities<S extends string>(
   chain: MarkovChain<S>,
-  options: { threshold?: number; limit?: number } = {},
+  options: ConductanceSearchOptions & { threshold?: number } = {},
 ): ConductanceCut<S>[] {
   const threshold = options.threshold ?? 0.25;
-  return lowConductanceCuts(chain, { limit: options.limit }).filter((cut) => cut.conductance <= threshold);
+  return lowConductanceCuts(chain, {
+    maxCutSize: options.maxCutSize,
+    limit: options.limit,
+    maxCandidates: options.maxCandidates,
+  }).filter((cut) => cut.conductance <= threshold);
 }
 
 export function measureOf<S extends string>(
@@ -1033,6 +1078,35 @@ function validateOperator<I extends string, O extends string>(operator: MarkovOp
     if (Math.abs(total - 1) > DEFAULT_TOLERANCE) {
       throw new Error("operator rows must sum to 1");
     }
+  }
+}
+
+function validateNonnegativeIntegerOrInfinity(value: number, label: string) {
+  if (value !== Number.POSITIVE_INFINITY && (!Number.isInteger(value) || value < 0)) {
+    throw new Error(`${label} must be a nonnegative integer`);
+  }
+}
+
+function countSubsetCandidates(stateCount: number, maxSize: number, stopAfter: number): number {
+  let total = 0;
+  let combinationsAtSize = 1;
+  for (let size = 1; size <= maxSize; size++) {
+    combinationsAtSize = combinationsAtSize * (stateCount - size + 1) / size;
+    total += combinationsAtSize;
+    if (total > stopAfter) return total;
+  }
+  return total;
+}
+
+function* combinations<T>(values: readonly T[], size: number): Generator<T[]> {
+  const indexes = Array.from({ length: size }, (_value, index) => index);
+  while (true) {
+    yield indexes.map((index) => values[index]!);
+    let position = size - 1;
+    while (position >= 0 && indexes[position] === values.length - size + position) position--;
+    if (position < 0) return;
+    indexes[position]! += 1;
+    for (let next = position + 1; next < size; next++) indexes[next] = indexes[next - 1]! + 1;
   }
 }
 

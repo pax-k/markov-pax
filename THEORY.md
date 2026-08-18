@@ -1361,6 +1361,17 @@ P_ij = (N_ij + alpha) / (sum_k N_ik + alpha |S|)
 
 This avoids zero probabilities for transitions not seen in the sample.
 
+Implemented API:
+
+```ts
+const learned = MarkovChain.fit(
+  ["A", "B", "A", "C", "A", "B"],
+  { states: ["A", "B", "C"], smoothing: 1 },
+);
+```
+
+Without smoothing, each declared state must have at least one observed outgoing transition. With smoothing, the fitted matrix can include declared states that did not occur in the path.
+
 ## 36. SDK Design
 
 The SDK should be layered, not one giant `MarkovTheory` class.
@@ -1382,7 +1393,9 @@ MCMC changes the purpose of the chain.
 Random walks specialize transitions on graphs.
 ```
 
-### Core Types
+### Conceptual Core Types
+
+The following interfaces explain the design. They are conceptual types, not all exported public API names.
 
 ```ts
 type Probability = number;
@@ -1409,11 +1422,10 @@ interface MarkovProcess<S> {
 ```ts
 type Matrix = number[][];
 
-class MarkovChain<S> {
+class ProposedMarkovChainShape<S> {
   constructor(
     readonly states: S[],
     readonly transition: Matrix,
-    readonly initial?: number[],
   ) {}
 
   step(distribution: number[]): number[] {
@@ -1446,7 +1458,7 @@ class MarkovChain<S> {
 }
 ```
 
-High-level usage:
+Implemented high-level usage:
 
 ```ts
 const weather = MarkovChain.from({
@@ -1553,8 +1565,9 @@ chain.distributionAfter({ A: 1 }, 5);
 chain.pathProbability(["A", "B", "B", "A"]);
 chain.stationary();
 chain.classify();
-chain.expectedReturnTime("A");
 ```
+
+The SDK does not expose an `expectedReturnTime` instance method. For an irreducible positive recurrent finite chain, compute a theoretical return time as `1 / chain.stationary().get(state)` after you verify that the model assumptions apply.
 
 ### Absorbing Chains
 
@@ -1691,15 +1704,22 @@ Keep the SDK organized around three levels:
    stationary(), viterbi(), valueIteration(), pagerank(), metropolisHastings()
 ```
 
-The high-level API should make simple things easy:
+The implemented high-level API makes common finite-chain work direct:
 
 ```ts
-const model = MarkovChain.from(...);
+const model = MarkovChain.from({
+  A: { A: 0.1, B: 0.9 },
+  B: { A: 0.4, B: 0.6 },
+});
 
-model.analyze();
-model.simulate();
-model.predict();
-model.fit(data);
+model.stepFrom("A");
+model.distributionAfter({ A: 1 }, 5);
+model.simulate("A", 20);
+model.stationary();
+
+const learned = MarkovChain.fit(["A", "B", "B", "A"], {
+  smoothing: 1,
+});
 ```
 
 while still keeping the math inspectable:
@@ -1707,8 +1727,9 @@ while still keeping the math inspectable:
 ```ts
 model.matrix;
 model.states;
-model.kernel;
 ```
+
+Methods such as `analyze`, `predict`, and an instance `fit` are proposed convenience APIs only. They are not implemented. Use the explicit model and algorithm methods exported by the SDK.
 
 ## 37. Big Picture
 

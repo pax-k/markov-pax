@@ -147,4 +147,28 @@ describe("MarkovChain", () => {
     expect(() => chain.distributionAfter({ A: 0.7, B: 0.7 }, 1)).toThrow(/sum to 1/i);
     expect(() => chain.simulate("A", -1)).toThrow(/steps/i);
   });
+
+  test("fits transition probabilities from an observed path", () => {
+    const fitted = MarkovChain.fit(["A", "B", "A", "C", "A", "B"]);
+
+    expect(fitted.states).toEqual(["A", "B", "C"]);
+    expect(fitted.transitionProbability("A", "B")).toBeCloseTo(2 / 3);
+    expect(fitted.transitionProbability("A", "C")).toBeCloseTo(1 / 3);
+    expect(fitted.transitionProbability("B", "A")).toBe(1);
+    expect(fitted.transitionProbability("C", "A")).toBe(1);
+  });
+
+  test("fits declared states with additive smoothing and rejects invalid data", () => {
+    const fitted = MarkovChain.fit(["A", "B", "A"], {
+      states: ["A", "B", "C"],
+      smoothing: 1,
+    });
+
+    expect(fitted.stepFrom("A")).toEqual({ A: 0.25, B: 0.5, C: 0.25 });
+    expect(fitted.stepFrom("C")).toEqual({ A: 1 / 3, B: 1 / 3, C: 1 / 3 });
+    expect(() => MarkovChain.fit(["A"])).toThrow(/at least two/i);
+    expect(() => MarkovChain.fit(["A", "B"], { states: ["A"] })).toThrow(/unknown state/i);
+    expect(() => MarkovChain.fit(["A", "B"], { smoothing: -1 })).toThrow(/smoothing/i);
+    expect(() => MarkovChain.fit(["A", "B", "A"], { states: ["A", "B", "C"] })).toThrow(/outgoing/i);
+  });
 });
